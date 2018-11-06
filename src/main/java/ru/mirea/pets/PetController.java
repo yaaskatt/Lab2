@@ -15,7 +15,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @Controller
 public class PetController {
 
-
     @Autowired
     private PetService petService;
 
@@ -24,12 +23,4 @@ public class PetController {
     public List pets() {
         return petService.pets();
     }
-
-    @RequestMapping(value = "pets/name={name}&price={price}", method = PUT)
-    @ResponseBody
-    public void put(@PathVariable String name, @PathVariable int price) {
-        petService.put(name, price);
-    }
-
-    
 }

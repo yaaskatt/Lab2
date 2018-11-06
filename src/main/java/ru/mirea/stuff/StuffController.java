@@ -22,10 +22,4 @@ public class StuffController {
     public List stuff() {
         return stuffService.stuff();
     }
-
-    @RequestMapping(value = "stuff/name={name}&price={price}", method = PUT)
-    @ResponseBody
-    public void put(@PathVariable String name, @PathVariable int price) {
-        stuffService.put(name, price);
-    }
 }

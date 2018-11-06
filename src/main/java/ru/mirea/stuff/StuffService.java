@@ -7,6 +7,7 @@ import ru.mirea.Inc;
 
 import javax.annotation.PostConstruct;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -36,7 +37,13 @@ public class StuffService {
         try {
             stmt.executeUpdate(query);
         } catch (Exception e) {e.printStackTrace();};
+
+        put("brush", 200);
+        put("shampoo", 500);
+        put("toy", 300);
     }
+
+
 
     public List stuff() {
         String q = "SELECT * FROM stuff";
@@ -51,9 +58,14 @@ public class StuffService {
     }
 
     public void put(String name, int price) {
-        String q = "INSERT INTO stuff VALUES(" + Inc.inc() + ", " + name + ", " + price + ")";
+        String sql="INSERT INTO stuff (id , name , price) " +
+                " VALUES (?,?,?)";
         try {
-            stmt.executeUpdate(q);
-        } catch (Exception e) {e.printStackTrace();};
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, Inc.inc());
+            pstmt.setString(2, name);
+            pstmt.setInt(3, price);
+            pstmt.execute();
+        } catch (Exception e) {e.printStackTrace();}
     }
 }

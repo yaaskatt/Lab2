@@ -37,7 +37,13 @@ public class PetService {
         try {
             stmt.executeUpdate(query);
         } catch (Exception e) {e.printStackTrace();};
+
+        put("cat", 1000);
+        put("dog", 2000);
+        put("rabbit", 4000);
         }
+
+
 
     public List pets() {
         String q = "SELECT * FROM pets";
@@ -52,7 +58,6 @@ public class PetService {
     }
 
     public void put(String name, int price) {
-        //String q = "INSERT INTO pets(id, name, price) VALUES(" + Inc.inc() + " , \"" + name + " , " + price + ")";
         String sql="INSERT INTO pets (id , name , price) " +
                 " VALUES (?,?,?)";
         try {
@@ -62,8 +67,6 @@ public class PetService {
             pstmt.setInt(3,price);
             pstmt.execute();
         } catch (Exception e) {e.printStackTrace();};
-
-
-    }
+        }
 
 }
