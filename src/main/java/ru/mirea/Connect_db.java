@@ -1,15 +1,17 @@
 package ru.mirea;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+
+@Component
 public class Connect_db {
     private static Connection con = null;
-
 
     public static Connection getConnection() {
         if (con == null) con = getNewConnection();

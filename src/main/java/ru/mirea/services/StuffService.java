@@ -1,9 +1,9 @@
-package ru.mirea.stuff;
+package ru.mirea.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.mirea.Connect_db;
 import ru.mirea.Convertion;
-
 import javax.annotation.PostConstruct;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +12,8 @@ import java.util.List;
 
 @Component
 public class StuffService {
+
+    private Connect_db connect_db;
 
     private static Connection con = null;
     private static Statement stmt;
@@ -35,5 +37,10 @@ public class StuffService {
             result = Convertion.resultSetToArrayList(rs);
         } catch (Exception e) {e.printStackTrace();};
         return result;
+    }
+
+    @Autowired
+    public void setConnect_db (Connect_db connect_db) {
+        this.connect_db = connect_db;
     }
 }
