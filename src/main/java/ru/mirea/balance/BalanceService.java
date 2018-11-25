@@ -15,6 +15,7 @@ import ru.mirea.Connect_db;
 import ru.mirea.Convertion;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.sql.*;
 import java.util.*;
 
@@ -30,23 +31,9 @@ public class BalanceService {
 
         con = Connect_db.getConnection();
 
-        String query = "CREATE TABLE balance (" +
-                "userId INT(10) PRIMARY KEY," +
-                "balance INT(10))";
-
         try {
             stmt = con.createStatement();
         } catch (Exception e) {e.printStackTrace();};
-
-        try {
-            stmt.executeUpdate(query);
-        } catch (Exception e) {e.printStackTrace();};
-
-        put(1,1000);
-        put(2,3000);
-        put(3,805);
-        put(4,0);
-        put(5,500);
     }
 
     public List balance(int id) {
@@ -66,16 +53,7 @@ public class BalanceService {
         return result;
     }
 
-    public void put(int userId, double bal) {
-        String q = "INSERT INTO balance(userId, balance) VALUES(" + userId + "," + bal + ")";
-        try {
-            stmt.executeUpdate(q);
-        } catch (Exception e) {
-            update(userId, bal);
-        };
-    }
-
-    public void update(int userId, double newBal) {
+    public void putNewBal(int userId, double newBal) {
         String q = "UPDATE balance SET balance = " + newBal + " WHERE userId = " + userId;
         try {
             stmt.executeUpdate(q);

@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.mirea.balance.BalanceService;
-import ru.mirea.pets.Pet;
 import ru.mirea.pets.PetService;
-import ru.mirea.stuff.Stuff;
 import ru.mirea.stuff.StuffService;
 
 import java.util.List;

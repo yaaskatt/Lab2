@@ -29,8 +29,8 @@ public class BalanceController {
 
     @RequestMapping(value = "balance/{id}bal={bal}", method = PUT)
     @ResponseBody
-    public void put(@PathVariable int id, @PathVariable double bal) {
-        balanceService.put(id, bal);
+    public void putNewBal(@PathVariable int id, @PathVariable double bal) {
+        balanceService.putNewBal(id, bal);
     }
 
 }
