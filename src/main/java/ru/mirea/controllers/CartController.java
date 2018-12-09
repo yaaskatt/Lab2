@@ -16,37 +16,37 @@ public class CartController {
 
     private CartService cartService;
 
-    @RequestMapping(value = "services/{id}", method = GET)
+    @RequestMapping(value = "cart/{id}", method = GET)
     @ResponseBody
     public List get(@PathVariable int id) {
         return cartService.cart(id);
     }
 
-    @RequestMapping(value = "services/pets/{userId}", method = GET)
+    @RequestMapping(value = "cart/pets/{userId}", method = GET)
     @ResponseBody
     public List getPets(@PathVariable int userId) {
         return cartService.getPets(userId);
     }
 
-    @RequestMapping(value = "services/stuff/{userId}", method = GET)
+    @RequestMapping(value = "cart/stuff/{userId}", method = GET)
     @ResponseBody
     public List getStuff(@PathVariable int userId) {
         return cartService.getStuff(userId);
     }
 
-    @RequestMapping(value = "services/{userId}/{itemId}", method = PUT)
+    @RequestMapping(value = "cart/{userId}/{itemId}", method = PUT)
     @ResponseBody
     public void put(@PathVariable int userId, @PathVariable int itemId) {
         cartService.put(userId, itemId);
     }
 
-    @RequestMapping(value = "services/{userId}/{itemId}", method = DELETE)
+    @RequestMapping(value = "cart/{userId}/{itemId}", method = DELETE)
     @ResponseBody
     public void delete(@PathVariable int userId, @PathVariable int itemId) {
         cartService.delete(userId, itemId);
     }
 
-    @RequestMapping(value = "services/{userId}", method = POST)
+    @RequestMapping(value = "cart/{userId}", method = POST)
     @ResponseBody
     public void post(@PathVariable int userId) {
         cartService.post(userId);

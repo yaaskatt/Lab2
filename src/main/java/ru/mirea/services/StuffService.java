@@ -24,6 +24,15 @@ public class StuffService {
         con = Connect_db.getConnection();
         try {
             stmt = con.createStatement();
+            stmt.executeUpdate("CREATE TABLE stuff(" +
+                    "id INT(10) PRIMARY KEY," +
+                    "name VARCHAR(30)," +
+                    "price INT(6)" +
+                    ")");
+            stmt.executeUpdate("INSERT INTO stuff VALUES " +
+                    "(4, 'brush', 300)," +
+                    "(5, 'shampoo', 800)," +
+                    "(6, 'toy', 400)");
         } catch (Exception e) {e.printStackTrace();};
     }
 

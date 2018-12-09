@@ -26,22 +26,33 @@ public class CartService {
         con = connect_db.getConnection();
         try {
             stmt = con.createStatement();
+            stmt.executeUpdate("CREATE TABLE cart (" +
+                    "id INT(10) PRIMARY KEY AUTO_INCREMENT," +
+                    "userId INT(10)," +
+                    "itemId INT(10)" +
+                    ")");
+            stmt.executeUpdate("INSERT INTO cart(userId, itemId) VALUES " +
+                    "(1, 2), (1,4)," +
+                    "(2, 3), (2, 4)," +
+                    "(3, 5)," +
+                    "(4, 6), (4, 1)," +
+                    "(5, 2), (5, 3), (5, 5)");
         } catch (Exception e) {e.printStackTrace();};
         }
 
     public List cart(int userId) {
-        String q = "SELECT * FROM services WHERE userId = " + userId;
+        String q = "SELECT * FROM cart WHERE userId = " + userId;
         return get(q);
     }
 
     public List getStuff(int userId) {
-        String q = "SELECT services.* FROM services INNER JOIN stuff ON services.itemId = stuff.id WHERE services.userId = " + userId;
+        String q = "SELECT * FROM cart INNER JOIN stuff ON cart.itemId = stuff.id WHERE cart.userId = " + userId;
         return get(q);
     }
 
     public List getPets(int userId) {
-        String q = "SELECT services.* FROM services INNER JOIN pets ON " +
-                "services.itemId = pets.id WHERE services.userId = " + userId;
+        String q = "SELECT * FROM cart INNER JOIN pets ON " +
+                "cart.itemId = pets.id WHERE cart.userId = " + userId;
         return get(q);
     }
 
@@ -57,7 +68,7 @@ public class CartService {
         n = rs.next();
         } catch (Exception e) {};
         if (n == false) throw new NullPointerException("No item found");
-        String q = "INSERT INTO services(userId, itemId) VALUES(" + userId + "," + itemId + ")";
+        String q = "INSERT INTO cart(userId, itemId) VALUES(" + userId + "," + itemId + ")";
         try {
             stmt.executeUpdate(q);
         } catch (Exception e) {};
@@ -65,7 +76,7 @@ public class CartService {
     }
 
     public void delete(int userId, int itemId) {
-        String q = "DELETE FROM services WHERE userId = " + userId + " AND itemId = " + itemId;
+        String q = "DELETE FROM cart WHERE userId = " + userId + " AND itemId = " + itemId;
         try {
             stmt.executeUpdate(q);
         } catch (Exception e) {
@@ -92,7 +103,7 @@ public class CartService {
         int stuffSum = 0;
         int totalPrice = 0;
         int bal = 0;
-        String q = "SELECT SUM(pets.price) FROM pets INNER JOIN services ON services.itemId = pets.id WHERE services.userId = " + userId;
+        String q = "SELECT SUM(pets.price) FROM pets INNER JOIN cart ON cart.itemId = pets.id WHERE cart.userId = " + userId;
         try {
             rs = stmt.executeQuery(q);
             rs.next();
@@ -100,7 +111,7 @@ public class CartService {
         } catch (Exception e) {
             e.printStackTrace();
         };
-        q = "SELECT SUM(stuff.price) FROM stuff INNER JOIN services ON services.itemId = stuff.id WHERE services.userId = " + userId;
+        q = "SELECT SUM(stuff.price) FROM stuff INNER JOIN cart ON cart.itemId = stuff.id WHERE cart.userId = " + userId;
         try {
             rs = stmt.executeQuery(q);
             rs.next();
@@ -109,7 +120,7 @@ public class CartService {
             e.printStackTrace();
         };
         totalPrice = petSum + stuffSum;
-        q = "SELECT controllers FROM controllers WHERE userId = " + userId;
+        q = "SELECT balance FROM balance WHERE userId = " + userId;
         try {
             rs = stmt.executeQuery(q);
             rs.next();
@@ -120,8 +131,8 @@ public class CartService {
         if (bal >= totalPrice) {
             balanceService.putNewBal(userId, bal - totalPrice);
         }
-        else throw new UnsupportedOperationException("Not enough controllers");
-        q = "DELETE FROM services WHERE userId = " + userId;
+        else throw new UnsupportedOperationException("Not enough balance");
+        q = "DELETE FROM cart WHERE userId = " + userId;
         try {
             stmt.executeUpdate(q);
         } catch (Exception e) {};

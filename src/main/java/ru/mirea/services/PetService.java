@@ -24,6 +24,15 @@ public class PetService {
         con = Connect_db.getConnection();
         try {
             stmt = con.createStatement();
+            stmt.executeUpdate("CREATE TABLE pets(" +
+                    "id INT(10) PRIMARY KEY," +
+                    "name VARCHAR(30)," +
+                    "price INT(6)" +
+                    ")");
+            stmt.executeUpdate("INSERT INTO pets VALUES " +
+                    "(1, 'cat', 2000)," +
+                    "(2, 'dog', 3000)," +
+                    "(3, 'rabbit', 5000)");
         } catch (Exception e) {e.printStackTrace();};
     }
 

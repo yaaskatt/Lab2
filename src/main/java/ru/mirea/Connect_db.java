@@ -21,10 +21,9 @@ public class Connect_db {
     private static Connection getNewConnection() {
         String user = "root";
         String password = "root";
-        String db = "lab2";
-        String url = "jdbc:mysql://localhost:3306/" + db +
-                "?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String url = "jdbc:h2:mem:~/DB";
         try {
+            Class.forName("org.h2.Driver").newInstance();
             con=DriverManager.getConnection(url, user, password);
         }
         catch(Exception e) {

@@ -17,16 +17,16 @@ public class BalanceController {
 
     private BalanceService balanceService;
 
-    @RequestMapping(value = "controllers/{id}", method = GET)
+    @RequestMapping(value = "balance/{id}", method = GET)
     @ResponseBody
     public List balance(@PathVariable int id) {
         return balanceService.balance(id);
     }
 
-    @RequestMapping(value = "controllers/{id}bal={bal}", method = PUT)
+    @RequestMapping(value = "balance/{id}={balance}", method = PUT)
     @ResponseBody
-    public void putNewBal(@PathVariable int id, @PathVariable double bal) {
-        balanceService.putNewBal(id, bal);
+    public void putNewBal(@PathVariable int id, @PathVariable double balance) {
+        balanceService.putNewBal(id, balance);
     }
 
     @Autowired

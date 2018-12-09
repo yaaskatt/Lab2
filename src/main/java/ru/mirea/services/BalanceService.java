@@ -25,11 +25,15 @@ public class BalanceService {
 
         try {
             stmt = con.createStatement();
+            stmt.executeUpdate("CREATE TABLE balance(" +
+                    "userId INT(10) PRIMARY KEY, balance INT(10)" +
+                    ")");
+            stmt.executeUpdate("INSERT INTO balance VALUES (1, 1000), (2, 4000), (3, 500), (4, 0), (5, 12000)");
         } catch (Exception e) {e.printStackTrace();};
     }
 
     public List balance(int id) {
-        String q = "SELECT * FROM controllers WHERE userId = " + id;
+        String q = "SELECT * FROM balance WHERE userId = " + id;
         List result = null;
         rs = null;
         try {
@@ -46,7 +50,7 @@ public class BalanceService {
     }
 
     public void putNewBal(int userId, double newBal) {
-        String q = "UPDATE controllers SET controllers = " + newBal + " WHERE userId = " + userId;
+        String q = "UPDATE balance SET balance = " + newBal + " WHERE userId = " + userId;
         try {
             stmt.executeUpdate(q);
         } catch (Exception e) {
